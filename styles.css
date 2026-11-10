@@ -4,3 +4,21 @@
 .filter-field{display:flex;flex-direction:column;gap:6px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8c7045}
 .filter-field select{width:100%;padding:12px 13px;border:1px solid #e2e5df;border-radius:4px;background:#fff;color:var(--ink);font:12px 'DM Sans',sans-serif;outline-color:var(--gold)}
 @media(max-width:760px){.filter-row{grid-template-columns:1fr;gap:9px}.filter-field{display:grid;grid-template-columns:90px 1fr;align-items:center}.filter-field select{padding:11px}}
+
+.taxonomy-section{padding-top:12px}
+.taxonomy-browser{background:#fff;border:1px solid #e6e9e2;border-radius:6px;padding:24px}
+.taxonomy-hint,.taxonomy-details>p{color:var(--muted);font-size:13px;margin:0}
+.taxonomy-title h3{font:600 27px 'Playfair Display',serif;color:var(--forest);margin:8px 0 3px}
+.taxonomy-title p{font-size:12px;color:var(--muted);margin:0 0 18px}
+.taxonomy-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.taxonomy-group{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:5px;padding:15px;background:#f5f7f2;border:1px solid #e6e9e2;border-radius:4px;cursor:pointer;color:var(--ink);font-family:'DM Sans',sans-serif}
+.taxonomy-group strong{font:600 17px 'Playfair Display',serif;color:var(--forest)}
+.taxonomy-group span{font-size:11px;color:var(--muted)}
+.taxonomy-group small{font-size:10px;color:#a47737;font-weight:700}
+.taxonomy-group:hover,.taxonomy-group.selected{border-color:var(--gold);background:#fbf7ed}
+.taxonomy-details{margin-top:19px;padding:18px;background:#f8f7f1;border-radius:4px}
+.taxonomy-details h4{font:600 22px 'Playfair Display',serif;color:var(--forest);margin:0 0 4px}
+.taxonomy-details p{font-size:12px;color:var(--muted);margin:0 0 13px}
+.taxonomy-items{display:flex;flex-wrap:wrap;gap:8px}
+.taxonomy-item{display:inline-block;padding:7px 11px;border-radius:20px;background:#fff;border:1px solid #e5e8e1;color:#40534a;font-size:11px}
+@media(max-width:760px){.taxonomy-browser{padding:17px}.taxonomy-groups{grid-template-columns:repeat(2,minmax(0,1fr))}.taxonomy-group{padding:12px}.taxonomy-group strong{font-size:15px}}
