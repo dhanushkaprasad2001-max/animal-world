@@ -6,6 +6,59 @@ const categories=[
 {name:"Fish",count:"Aquatic animals that breathe through gills",image:"https://images.unsplash.com/photo-1545670723-196ed0954986?auto=format&fit=crop&w=900&q=80"},
 {name:"Insects",count:"Six-legged animals with three main body sections",image:"https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=900&q=80"},
 {name:"Other Invertebrates",count:"Animals without a backbone, including spiders and octopuses",image:"https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=900&q=80"}];
+const taxonomy={
+"Mammals":[
+{group:"Dogs",kind:"Domestic dog breeds",items:["Labrador Retriever","German Shepherd","Golden Retriever","French Bulldog","Poodle","Bulldog","Beagle","Rottweiler","Dachshund","Siberian Husky","Boxer","Shih Tzu","Pomeranian","Doberman Pinscher","Great Dane","Chihuahua","Border Collie","Cocker Spaniel","Australian Shepherd","Mixed-breed dog"]},
+{group:"Cats",kind:"Domestic cat breeds",items:["Persian","Maine Coon","Siamese","Ragdoll","Bengal","British Shorthair","Sphynx","Abyssinian","Scottish Fold","Birman","Russian Blue","American Shorthair","Norwegian Forest Cat","Devon Rex","Domestic Shorthair"]},
+{group:"Big Cats",kind:"Wild cat species",items:["Lion","Tiger","Leopard","Jaguar","Cheetah","Snow Leopard","Cougar","Clouded Leopard"]},
+{group:"Bears",kind:"Bear species",items:["Brown Bear","Polar Bear","American Black Bear","Asian Black Bear","Giant Panda","Sloth Bear","Sun Bear","Spectacled Bear"]},
+{group:"Elephants",kind:"Elephant species",items:["African Savanna Elephant","African Forest Elephant","Asian Elephant"]},
+{group:"Primates",kind:"Monkey, ape and lemur groups",items:["Chimpanzee","Bonobo","Western Gorilla","Orangutan","Gibbon","Baboon","Macaque","Capuchin Monkey","Howler Monkey","Lemur"]},
+{group:"Hoofed Mammals",kind:"Examples of hoofed mammals",items:["Horse","Zebra","Donkey","Giraffe","White Rhinoceros","Black Rhinoceros","Hippopotamus","Deer","Moose","Camel","Llama","Sheep","Goat","Cattle","Pig"]},
+{group:"Marine Mammals",kind:"Ocean-dwelling mammals",items:["Blue Whale","Humpback Whale","Orca","Sperm Whale","Bottlenose Dolphin","Harbour Porpoise","Manatee","Dugong","Harbour Seal","Sea Otter"]},
+{group:"Other Mammals",kind:"Additional mammal groups",items:["Red Fox","Gray Wolf","Meerkat","Kangaroo","Koala","Wombat","Rabbit","Hare","Hedgehog","Bat","Armadillo"]}
+],
+"Birds":[
+{group:"Birds of Prey",kind:"Eagles, hawks, falcons and vultures",items:["Bald Eagle","Golden Eagle","Peregrine Falcon","Red-tailed Hawk","Osprey","Turkey Vulture","Secretarybird"]},
+{group:"Parrots",kind:"Parrot species",items:["African Grey Parrot","Budgerigar","Cockatiel","Blue-and-yellow Macaw","Scarlet Macaw","Amazon Parrot","Cockatoo","Lovebird"]},
+{group:"Owls",kind:"Owl species",items:["Barn Owl","Snowy Owl","Great Horned Owl","Eurasian Eagle-Owl","Little Owl","Burrowing Owl"]},
+{group:"Songbirds",kind:"Perching and singing birds",items:["House Sparrow","American Robin","European Starling","Common Blackbird","Nightingale","Canary","Crow","Raven","Magpie"]},
+{group:"Water Birds",kind:"Birds associated with wetlands and water",items:["Mallard Duck","Mute Swan","Canada Goose","Greater Flamingo","Great Blue Heron","Kingfisher","Pelican","Cormorant"]},
+{group:"Flightless Birds",kind:"Birds that cannot fly",items:["Ostrich","Emu","Southern Cassowary","Greater Rhea","Kiwi","Penguin"]}
+],
+"Reptiles":[
+{group:"Snakes",kind:"Snake species",items:["King Cobra","Indian Cobra","Reticulated Python","Ball Python","Boa Constrictor","Green Anaconda","Black Mamba","Corn Snake","Rattlesnake","Common Krait"]},
+{group:"Lizards",kind:"Lizard groups and species",items:["Green Iguana","Komodo Dragon","Leopard Gecko","Chameleon","Monitor Lizard","Bearded Dragon","Skink","Gecko"]},
+{group:"Turtles and Tortoises",kind:"Shelled reptile groups",items:["Green Sea Turtle","Loggerhead Sea Turtle","Leatherback Sea Turtle","Hawksbill Sea Turtle","Galápagos Tortoise","Aldabra Giant Tortoise","Red-eared Slider"]},
+{group:"Crocodilians",kind:"Crocodiles, alligators, caimans and gharials",items:["Saltwater Crocodile","Nile Crocodile","American Alligator","Chinese Alligator","Black Caiman","Gharial"]}
+],
+"Amphibians":[
+{group:"Frogs",kind:"Frog species and families",items:["American Bullfrog","Poison Dart Frog","Tree Frog","Glass Frog","African Clawed Frog","Wood Frog","Tomato Frog"]},
+{group:"Toads",kind:"Toad species",items:["Common Toad","Cane Toad","American Toad","Natterjack Toad"]},
+{group:"Salamanders and Newts",kind:"Tail-bearing amphibians",items:["Axolotl","Fire Salamander","Tiger Salamander","Great Crested Newt","Mudpuppy"]},
+{group:"Caecilians",kind:"Legless burrowing amphibians",items:["Ringed Caecilian","Aquatic Caecilian","Thompson's Caecilian"]}
+],
+"Fish":[
+{group:"Sharks and Rays",kind:"Cartilaginous fish",items:["Whale Shark","Great White Shark","Hammerhead Shark","Tiger Shark","Manta Ray","Stingray","Sawfish"]},
+{group:"Bony Fish",kind:"Common groups of bony fish",items:["Clownfish","Atlantic Salmon","Bluefin Tuna","Goldfish","Common Carp","Seahorse","Lionfish","Angelfish","Barracuda","Guppy","Tilapia"]},
+{group:"Jawless Fish",kind:"Ancient jawless fish groups",items:["Sea Lamprey","Pacific Hagfish","Atlantic Hagfish"]},
+{group:"Freshwater Fish",kind:"Fish commonly found in rivers and lakes",items:["Catfish","Trout","Piranha","Arowana","Betta","Freshwater Eel","Pacu"]}
+],
+"Insects":[
+{group:"Butterflies and Moths",kind:"Lepidopteran insects",items:["Monarch Butterfly","Swallowtail Butterfly","Morpho Butterfly","Painted Lady","Luna Moth","Atlas Moth","Hawk Moth"]},
+{group:"Bees, Ants and Wasps",kind:"Social and solitary hymenopterans",items:["Western Honey Bee","Bumblebee","Leafcutter Ant","Fire Ant","Carpenter Ant","Paper Wasp","Yellowjacket"]},
+{group:"Beetles",kind:"Beetle groups",items:["Ladybird Beetle","Stag Beetle","Rhinoceros Beetle","Dung Beetle","Firefly","Tiger Beetle"]},
+{group:"Flies and Mosquitoes",kind:"Two-winged insects",items:["Housefly","Mosquito","Fruit Fly","Horse Fly","Crane Fly"]},
+{group:"Other Insects",kind:"Additional insect groups",items:["Praying Mantis","Stick Insect","Grasshopper","Cricket","Dragonfly","Damselfly","Cicada","Cockroach","Termite","Earwig"]}
+],
+"Other Invertebrates":[
+{group:"Arachnids",kind:"Eight-legged arthropods",items:["Tarantula","Black Widow Spider","Jumping Spider","Wolf Spider","Scorpion","Harvestman","Tick","Mite"]},
+{group:"Crustaceans",kind:"Mostly aquatic arthropods",items:["Blue Crab","Lobster","Shrimp","Crayfish","Krill","Barnacle","Hermit Crab","Woodlouse"]},
+{group:"Molluscs",kind:"Soft-bodied animals, often with shells",items:["Giant Pacific Octopus","Common Octopus","Squid","Cuttlefish","Garden Snail","Giant Clam","Oyster","Mussel"]},
+{group:"Worms",kind:"Major worm groups",items:["Earthworm","Leech","Tapeworm","Roundworm","Marine Bristle Worm"]},
+{group:"Cnidarians",kind:"Jellyfish, corals and relatives",items:["Moon Jellyfish","Box Jellyfish","Sea Anemone","Brain Coral","Staghorn Coral","Portuguese Man o' War"]},
+{group:"Echinoderms",kind:"Spiny-skinned marine animals",items:["Common Starfish","Brittle Star","Sea Urchin","Sea Cucumber","Feather Star"]}
+]};
 const animals=[
 {name:"African Elephant",category:"Mammals",scientific:"Loxodonta africana",habitat:"Savannas, forests and wetlands of sub-Saharan Africa",diet:"Herbivore — grasses, leaves, bark, roots and fruit",lifespan:"Often 60–70 years in the wild",size:"Males can reach about 3.2–4 m at the shoulder",summary:"The largest living land animal, known for its intelligence, social bonds and remarkable trunk.",behaviour:"African elephants live in close family groups usually led by an experienced female. They communicate through sounds, touch, scent and low-frequency rumbles that can travel over long distances.",adaptations:"A muscular trunk helps with breathing, smelling, drinking, feeding and handling objects. Large ears help release body heat, while broad feet spread their weight across soft ground.",reproduction:"Females have a long gestation of about 22 months and usually give birth to one calf. Calves are cared for by their mothers and other members of the family group.",conservation:"African savanna elephants are listed as Endangered by the IUCN. Habitat loss, conflict with people and illegal ivory trade remain major threats.",image:"https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=1000&q=85"},
 {name:"Lion",category:"Mammals",scientific:"Panthera leo",habitat:"African grasslands, savannas and some dry woodland; a small population remains in India's Gir landscape",diet:"Carnivore — mainly medium to large hoofed mammals",lifespan:"About 10–14 years in the wild, with variation",size:"Large males may weigh around 150–250 kg",summary:"A powerful social cat whose pride structure is unusual among wild cat species.",behaviour:"Lions are the most social of the big cats. A pride often includes related females, cubs and one or more adult males. Females commonly cooperate when hunting and raising young.",adaptations:"Retractable claws, forward-facing eyes, strong jaws and muscular bodies help lions capture prey. Their tawny coats provide camouflage in dry grass.",reproduction:"After a gestation of roughly 110 days, a female usually gives birth to a litter of one to four cubs. Cubs depend on adults for protection and food.",conservation:"Lions are listed as Vulnerable. Habitat fragmentation, conflict with livestock owners and declines in wild prey affect many populations.",image:"https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1000&q=85"},
@@ -21,7 +74,9 @@ const animals=[
 {name:"Monarch Butterfly",category:"Insects",scientific:"Danaus plexippus",habitat:"Open fields, meadows and gardens across parts of North America; migratory populations travel long distances",diet:"Caterpillars feed on milkweed; adults drink nectar from flowers",lifespan:"Adults may live weeks; the migratory generation can live several months",size:"Wingspan commonly around 8.9–10.2 cm",summary:"A striking orange-and-black butterfly famous for its multi-generational migration.",behaviour:"Monarchs undergo complete metamorphosis: egg, caterpillar, chrysalis and adult. Some populations migrate thousands of kilometres between seasonal habitats.",adaptations:"Caterpillars obtain defensive chemicals from milkweed, making many monarchs distasteful to predators. Bright colours warn potential predators.",reproduction:"Females lay eggs on milkweed plants. Caterpillars feed and grow before forming a chrysalis, from which the adult butterfly emerges.",conservation:"Habitat loss, declining milkweed, pesticides and climate-related pressures affect monarch populations. Planting native nectar flowers and milkweed in suitable regions can help.",image:"https://images.unsplash.com/photo-1444927714506-8492d94b4e3d?auto=format&fit=crop&w=1000&q=85"}
 ];
 const categoryGrid=document.getElementById('category-grid'),animalGrid=document.getElementById('animal-grid'),search=document.getElementById('animal-search'),modal=document.getElementById('article-modal');
-function renderCategories(){categoryGrid.innerHTML=categories.map(c=>`<article class="category-card" data-category="${c.name}"><img src="${c.image}" alt="" loading="lazy"><div><h3>${c.name}</h3><span>${c.count}</span></div></article>`).join('');categoryGrid.querySelectorAll('.category-card').forEach(card=>card.addEventListener('click',()=>{search.value='';renderAnimals(card.dataset.category);document.querySelector('.featured').scrollIntoView({behavior:'smooth'});}));}
+function renderCategories(){categoryGrid.innerHTML=categories.map(c=>`<article class="category-card" data-category="${c.name}"><img src="${c.image}" alt="" loading="lazy"><div><h3>${c.name}</h3><span>${c.count}</span></div></article>`).join('');categoryGrid.querySelectorAll('.category-card').forEach(card=>card.addEventListener('click',()=>{renderTaxonomy(card.dataset.category);document.getElementById('animal-classification').scrollIntoView({behavior:'smooth'});}));}
+function renderTaxonomy(category){const browser=document.getElementById('taxonomy-browser');const groups=taxonomy[category]||[];browser.innerHTML=`<div class="taxonomy-title"><span class="tag">${category}</span><h3>${category}: explore subgroups</h3><p>Choose a group below to see examples and breeds.</p></div><div class="taxonomy-groups">${groups.map((g,i)=>`<button class="taxonomy-group" data-group="${i}"><strong>${g.group}</strong><span>${g.kind}</span><small>${g.items.length} examples →</small></button>`).join('')}</div><div id="taxonomy-details" class="taxonomy-details"><p>Select a subgroup to explore its examples.</p></div>`;browser.querySelectorAll('[data-group]').forEach(btn=>btn.addEventListener('click',()=>{const g=groups[Number(btn.dataset.group)];browser.querySelectorAll('.taxonomy-group').forEach(x=>x.classList.toggle('selected',x===btn));document.getElementById('taxonomy-details').innerHTML=`<h4>${g.group}</h4><p>${g.kind}</p><div class="taxonomy-items">${g.items.map(item=>`<span class="taxonomy-item">${item}</span>`).join('')}</div>`; }));}
+
 function animalHabitat(a){const h=a.habitat.toLowerCase();if(/ocean|marine|sea |sea,|coastal|coral|offshore|tropical oceans/.test(h))return "Marine";if(/river|lake|freshwater/.test(h))return "Freshwater";if(a.category==="Birds")return "Air";return "Land";}
 function animalDiet(a){const d=a.diet.toLowerCase();if(d.includes("herbivore"))return "Herbivore";if(d.includes("omnivore"))return "Omnivore";if(d.includes("insectivore"))return "Insectivore";if(d.includes("carnivore"))return "Carnivore";return "Other";}
 function animalType(a){return ["Domestic Dog","Domestic Cat","Golden Retriever"].includes(a.name)?"Pet":"Wild";}
