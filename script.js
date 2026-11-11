@@ -102,25 +102,19 @@ if(categoryGrid){renderCategories();renderAnimals();search.addEventListener('inp
  const slug=location.pathname.split('/').pop().replace(/\.html$/,'');
  let animal=slug.replace(/^(mammals|birds|reptiles|amphibians|fish|insects|other-invertebrates)-/,'').replace(/-(guide|field-guide|reef-guide|family-guide)$/,'').replace(/-field$/,'').replace(/-/g,' ').trim();
  const special={'elephant family':'African Elephant','clownfish reef':'Clownfish','octopus':'Giant Pacific Octopus','cat breeds and care':'Domestic Cat','choosing a dog breed':'Dog','daily care for dogs and cats':'Dog'};
- animal=special[animal]||animal;
- if(!animal||animal.length<3)animal=heading.textContent.split(':')[0].trim();
+ animal=special[animal]||animal;if(!animal||animal.length<3)animal=heading.textContent.split(':')[0].trim();
  const figure=document.createElement('figure');figure.className='article-species-photo';figure.style.cssText='margin:22px 0 30px';
  const img=document.createElement('img');img.alt=animal;img.loading='lazy';img.style.cssText='display:block;width:100%;max-height:520px;object-fit:cover;border-radius:12px;background:#edf1ed';
  const caption=document.createElement('figcaption');caption.style.cssText='font-size:12px;color:#68746e;padding-top:8px';
  figure.append(img,caption);heading.insertAdjacentElement('afterend',figure);
- const words=animal.toLowerCase().split(/\s+/).filter(w=>w.length>2);
- const query='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=12&gsrsearch='+encodeURIComponent('filetype:bitmap '+animal)+'&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=1400&format=json&origin=*';
- fetch(query).then(r=>r.ok?r.json():Promise.reject()).then(data=>{
-  const files=Object.values(data.query?.pages||{}).map(p=>({title:(p.title||'').replace(/^File:/,''),info:p.imageinfo?.[0]})).filter(x=>{
-   const m=x.info?.extmetadata||{},lic=(m.LicenseShortName?.value||m.License?.value||'').toLowerCase();
-   return !!(x.info?.thumburl||x.info?.url)&&(/creative commons|cc0|public domain|cc by|cc-by/.test(lic));
-  });
-  files.sort((a,b)=>{const score=x=>{const t=x.title.toLowerCase();return t.includes(animal.toLowerCase())?0:words.filter(w=>t.includes(w)).length>=Math.min(2,words.length)?1:9};return score(a)-score(b)});
-  const match=files.find(x=>{const t=x.title.toLowerCase();return t.includes(animal.toLowerCase())||words.filter(w=>t.includes(w)).length>=Math.min(2,words.length)});
-  if(!match){figure.remove();return}
-  const m=match.info.extmetadata||{},clean=v=>{const d=document.createElement('div');d.innerHTML=v||'';return d.textContent.trim()};
-  img.src=match.info.thumburl||match.info.url;img.alt=animal+' — '+match.title;
-  caption.append(document.createTextNode(clean(m.Artist?.value||m.Credit?.value||'Photographer not listed')+' · '+clean(m.LicenseShortName?.value||m.License?.value||'Licence details')+' · '));
-  const link=document.createElement('a');link.href=match.info.descriptionurl;link.target='_blank';link.rel='noopener';link.textContent='Image source and licence';caption.append(link);
- }).catch(()=>figure.remove());
-})();
+ const clean=v=>{const d=document.createElement('div');d.innerHTML=v||'';return d.textContent.trim()};
+ const fromInfo=(info,title)=>{if(!info)return null;const m=info.extmetadata||{},lic=clean(m.LicenseShortName?.value||m.License?.value||'');if(!/creative commons|cc0|public domain|cc by|cc-by/i.test(lic)||(!info.thumburl&&!info.url))return null;return {url:info.thumburl||info.url,title,author:clean(m.Artist?.value||m.Credit?.value||'Photographer not identified'),license:lic,licenseUrl:m.LicenseUrl?.value||'',fileUrl:info.descriptionurl||'https://commons.wikimedia.org/wiki/'+encodeURIComponent('File:'+title)}};
+ async function getPhoto(){
+  const words=animal.toLowerCase().split(/\s+/).filter(w=>w.length>2);
+  const api='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=30&gsrsearch='+encodeURIComponent('filetype:bitmap '+animal)+'&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=1400&format=json&origin=*';
+  const r=await fetch(api);if(r.ok){const data=await r.json(),files=Object.values(data.query?.pages||{}).map(p=>({title:(p.title||'').replace(/^File:/,''),info:p.imageinfo?.[0]}));files.sort((a,b)=>{const score=x=>{const t=x.title.toLowerCase();return t.includes(animal.toLowerCase())?0:words.filter(w=>t.includes(w)).length>=Math.min(2,words.length)?1:9};return score(a)-score(b)});const match=files.find(x=>{const t=x.title.toLowerCase();return t.includes(animal.toLowerCase())||words.filter(w=>t.includes(w)).length>=Math.min(2,words.length)});const photo=match&&fromInfo(match.info,match.title);if(photo)return photo;}
+  const sr=await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(animal));if(!sr.ok)return null;const summary=await sr.json(),imageUrl=summary.originalimage?.source||summary.thumbnail?.source;if(!imageUrl)return null;
+  const filename=decodeURIComponent(new URL(imageUrl).pathname.split('/').pop()),mr=await fetch('https://commons.wikimedia.org/w/api.php?action=query&titles='+encodeURIComponent('File:'+filename)+'&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=1400&format=json&origin=*');if(!mr.ok)return null;const md=await mr.json(),p=Object.values(md.query?.pages||{})[0];return fromInfo(p?.imageinfo?.[0],filename);
+ }
+ getPhoto().then(photo=>{if(!photo){figure.remove();return}img.src=photo.url;img.alt=animal+' — '+photo.title;caption.append(document.createTextNode(photo.author+' · '+photo.license+' · '));const link=document.createElement('a');link.href=photo.fileUrl;link.target='_blank';link.rel='noopener';link.textContent='Image source';caption.append(link);if(photo.licenseUrl){caption.append(' · ');const lic=document.createElement('a');lic.href=photo.licenseUrl;lic.target='_blank';lic.rel='noopener';lic.textContent='Licence terms';caption.append(lic)} }).catch(()=>figure.remove());
+})();;
