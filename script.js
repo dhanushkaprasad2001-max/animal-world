@@ -101,7 +101,7 @@ if(categoryGrid){renderCategories();renderAnimals();search.addEventListener('inp
 
 /* Species photographs for individual Animal World articles */
 (function loadArticleSpeciesPhoto(){
- const page=document.querySelector('.article-page'),heading=page?.querySelector('h1');if(!page||!heading)return;
+ const page=document.querySelector('.article-page'),heading=page?.querySelector('h1');if(!page||!heading)return;page.querySelectorAll('img[src^="http"]').forEach(img=>img.remove());
  const slug=location.pathname.split('/').pop().replace(/\.html$/,'');
  let animal=slug.replace(/^(mammals|birds|reptiles|amphibians|fish|insects|other-invertebrates)-/,'').replace(/-(guide|field-guide|reef-guide|family-guide)$/,'').replace(/-field$/,'').replace(/-/g,' ').trim();
  const special={'elephant family':'African Elephant','clownfish reef':'Clownfish','octopus':'Giant Pacific Octopus','cat breeds and care':'Domestic Cat','choosing a dog breed':'Dog','daily care for dogs and cats':'Dog'};
