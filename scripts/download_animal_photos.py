@@ -23,7 +23,17 @@ class ImgParser(HTMLParser):
 
 def get_json(url):
     req=Request(url,headers={"User-Agent":UA,"Accept":"application/json"})
-    with urlopen(req,timeout=35) as r: return json.loads(r.read().decode("utf-8"))
+    for attempt in range(7):
+        try:
+            with urlopen(req,timeout=35) as r: return json.loads(r.read().decode("utf-8"))
+        except HTTPError as e:
+            if e.code not in (429,500,502,503,504) or attempt==6: raise
+            delay=min(90,8*(2**attempt))
+            print("API rate limit/server response",e.code,"retrying in",delay,"seconds",file=sys.stderr)
+            time.sleep(delay)
+        except URLError:
+            if attempt==6: raise
+            time.sleep(min(60,5*(2**attempt))
 
 def clean(value):
     return re.sub(r"<[^>]+>"," ",html.unescape(value or "")).strip()
@@ -108,7 +118,7 @@ parser.feed(GUIDE.read_text(encoding="utf-8"))
 names=list(dict.fromkeys(parser.names))
 print("Unique species:",len(names))
 manifest={}
-with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
+with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
     futures=[pool.submit(download_one,n) for n in names]
     for idx,future in enumerate(concurrent.futures.as_completed(futures),1):
         name,result=future.result(); manifest[name]=result
