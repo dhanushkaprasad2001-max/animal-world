@@ -369,6 +369,7 @@ async function getCommonsPhoto(name){
  const metadata=await metadataResponse.json(),page=Object.values(metadata.query?.pages||{})[0];
  return fromInfo(page?.imageinfo?.[0],filename)||null;
 }
+const localAnimalPhotoManifest=fetch('assets/animals/manifest.json').then(r=>r.ok?r.json():{}).catch(()=>({}));
 const loaded=new Set();
 const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
  if(!entry.isIntersecting)return;const el=entry.target;observer.unobserve(el);
@@ -385,8 +386,8 @@ const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
   const source=document.createElement('p');source.className='content-credit';const a=document.createElement('a');
   a.href='https://en.wikipedia.org/wiki/'+encodeURIComponent((data.title||name).replace(/ /g,'_'));a.target='_blank';a.rel='noopener';a.textContent='Wikipedia article: '+(data.title||name);
   const licence=document.createElement('a');licence.href='https://creativecommons.org/licenses/by-sa/4.0/';licence.target='_blank';licence.rel='noopener';licence.textContent='CC BY-SA 4.0';source.append('Text adapted from ',a,' and modified for this Animal World guide. Reused text is shared under ',licence,'. See the source page for revision history.');body.appendChild(source);
-  try{const photo=await getCommonsPhoto(name),box=el.querySelector('.animal-photo'),credit=el.querySelector('.photo-credit');
-   if(photo){img.src=photo.url;img.alt=name+' — '+photo.title;box.style.display='';credit.innerHTML='';credit.append(document.createTextNode(photo.author+' · '+photo.license+' · '));const file=document.createElement('a');file.href=photo.fileUrl;file.target='_blank';file.rel='noopener';file.textContent='Image source';credit.append(file);if(photo.licenseUrl){credit.append(' · ');const lic=document.createElement('a');lic.href=photo.licenseUrl;lic.target='_blank';lic.rel='noopener';lic.textContent='Licence terms';credit.append(lic)}}
+  try{const manifest=await localAnimalPhotoManifest;const photo=manifest[name];const box=el.querySelector('.animal-photo'),credit=el.querySelector('.photo-credit');
+   if(photo&&photo.file&&photo.status.startsWith('downloaded')){img.src=photo.file;img.alt=name+' — '+(photo.source_title||'animal photograph');box.style.display='';credit.textContent=(photo.author||'Photographer not identified')+' · '+(photo.license||'Free licence')+' · locally hosted on Animal World';}
    else box.style.display='none';
   }catch(e){el.querySelector('.animal-photo').style.display='none'}
  }).catch(()=>{body.innerHTML='<p>A species-specific reference article could not be loaded. No unrelated image is displayed for this entry.</p>'});
