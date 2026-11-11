@@ -93,3 +93,32 @@ function renderAnimals(filter=''){const q=(search.value||'').toLowerCase();const
 function openAnimal(name){const a=animals.find(x=>x.name===name);if(!a)return;const sections=Object.entries(a).filter(([k])=>!['name','category','scientific','habitat','diet','lifespan','size','summary','image'].includes(k));document.getElementById('modal-content').innerHTML=`<img src="${a.image}" alt="${a.name}"><span class="tag">${a.category}</span><h2 id="modal-title">${a.name}</h2><p>${a.summary}</p><div class="facts"><div class="fact"><b>Scientific name</b><span><i>${a.scientific}</i></span></div><div class="fact"><b>Habitat</b><span>${a.habitat}</span></div><div class="fact"><b>Diet</b><span>${a.diet}</span></div><div class="fact"><b>Lifespan</b><span>${a.lifespan}</span></div><div class="fact"><b>Size</b><span>${a.size}</span></div></div>${sections.map(([k,v])=>`<h3>${k.charAt(0).toUpperCase()+k.slice(1)}</h3><p>${v}</p>`).join('')}<p><small>Educational overview. Details can vary by species, region and individual animal.</small></p>`;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
 function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';}
 if(categoryGrid){renderCategories();renderAnimals();search.addEventListener('input',()=>renderAnimals());['habitat-filter','diet-filter','type-filter'].forEach(id=>document.getElementById(id).addEventListener('change',()=>renderAnimals()));document.getElementById('year').textContent=new Date().getFullYear();document.querySelector('.modal-close').addEventListener('click',closeModal);modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});const toggle=document.querySelector('.menu-toggle');toggle.addEventListener('click',()=>{const nav=document.querySelector('.nav');nav.classList.toggle('open');toggle.setAttribute('aria-expanded',nav.classList.contains('open'));});}
+
+/* Species photographs for individual Animal World articles */
+(function loadArticleSpeciesPhoto(){
+ const page=document.querySelector('.article-page'),heading=page?.querySelector('h1');if(!page||!heading)return;
+ const slug=location.pathname.split('/').pop().replace(/\.html$/,'');
+ let animal=slug.replace(/^(mammals|birds|reptiles|amphibians|fish|insects|other-invertebrates)-/,'').replace(/-(guide|field-guide|reef-guide|family-guide)$/,'').replace(/-field$/,'').replace(/-/g,' ').trim();
+ const special={'elephant family':'African Elephant','clownfish reef':'Clownfish','octopus':'Giant Pacific Octopus','cat breeds and care':'Domestic Cat','choosing a dog breed':'Dog','daily care for dogs and cats':'Dog'};
+ animal=special[animal]||animal;
+ if(!animal||animal.length<3)animal=heading.textContent.split(':')[0].trim();
+ const figure=document.createElement('figure');figure.className='article-species-photo';figure.style.cssText='margin:22px 0 30px';
+ const img=document.createElement('img');img.alt=animal;img.loading='lazy';img.style.cssText='display:block;width:100%;max-height:520px;object-fit:cover;border-radius:12px;background:#edf1ed';
+ const caption=document.createElement('figcaption');caption.style.cssText='font-size:12px;color:#68746e;padding-top:8px';
+ figure.append(img,caption);heading.insertAdjacentElement('afterend',figure);
+ const words=animal.toLowerCase().split(/\\s+/).filter(w=>w.length>2);
+ const query='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=12&gsrsearch='+encodeURIComponent('filetype:bitmap '+animal)+'&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=1400&format=json&origin=*';
+ fetch(query).then(r=>r.ok?r.json():Promise.reject()).then(data=>{
+  const files=Object.values(data.query?.pages||{}).map(p=>({title:(p.title||'').replace(/^File:/,''),info:p.imageinfo?.[0]})).filter(x=>{
+   const m=x.info?.extmetadata||{},lic=(m.LicenseShortName?.value||m.License?.value||'').toLowerCase();
+   return !!(x.info?.thumburl||x.info?.url)&&(/creative commons|cc0|public domain|cc by|cc-by/.test(lic));
+  });
+  files.sort((a,b)=>{const score=x=>{const t=x.title.toLowerCase();return t.includes(animal.toLowerCase())?0:words.filter(w=>t.includes(w)).length>=Math.min(2,words.length)?1:9};return score(a)-score(b)});
+  const match=files.find(x=>{const t=x.title.toLowerCase();return t.includes(animal.toLowerCase())||words.filter(w=>t.includes(w)).length>=Math.min(2,words.length)});
+  if(!match){figure.remove();return}
+  const m=match.info.extmetadata||{},clean=v=>{const d=document.createElement('div');d.innerHTML=v||'';return d.textContent.trim()};
+  img.src=match.info.thumburl||match.info.url;img.alt=animal+' — '+match.title;
+  caption.append(document.createTextNode(clean(m.Artist?.value||m.Credit?.value||'Photographer not listed')+' · '+clean(m.LicenseShortName?.value||m.License?.value||'Licence details')+' · '));
+  const link=document.createElement('a');link.href=match.info.descriptionurl;link.target='_blank';link.rel='noopener';link.textContent='Image source and licence';caption.append(link);
+ }).catch(()=>figure.remove());
+})();
