@@ -36,6 +36,12 @@ jobs:
             echo "No new local animal photographs."
           else
             git commit -m "Add locally hosted animal photographs and credits"
-            git pull --rebase origin main
-            git push
+            for attempt in 1 2 3 4 5; do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep $((attempt * 3))
+            done
+            echo 'Could not push after five retries' >&2
+            exit 1
           fi
