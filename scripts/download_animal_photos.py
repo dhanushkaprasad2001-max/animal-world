@@ -51,7 +51,7 @@ def get_image(name):
     # Only accept filenames that clearly identify the requested animal.
     wanted=norm(name)
     words=[w for w in wanted.split() if len(w)>2]
-    blocked=re.compile(r"\b(aircraft|airplane|aviation|fighter|bomber|tank|armou?r|vehicle|automobile|truck|motorcycle|ship|boat|sculpture|statue|painting|drawing|illustration|cartoon|toy|logo|model|costume|mascot|museum exhibit)\b",re.I)
+    blocked=re.compile(r"\b(aircraft|airplane|aviation|fighter|bomber|tank|armou?r|vehicle|automobile|truck|motorcycle|ship|boat|sculpture|statue|painting|drawing|illustration|cartoon|toy|logo|model|costume|mascot|museum exhibit|stamp|postage|philatelic|commemorative)\b",re.I)
     params={"action":"query","generator":"search","gsrnamespace":6,"gsrlimit":50,"gsrsearch":"filetype:bitmap "+name,"prop":"imageinfo","iiprop":"url|extmetadata","iiurlwidth":800,"format":"json"}
     try:
         data=get_json("https://commons.wikimedia.org/w/api.php?"+urlencode(params))
