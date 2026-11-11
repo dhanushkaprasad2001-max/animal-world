@@ -1,11 +1,11 @@
 const categories=[
-{name:"Mammals",count:"Animals that feed their young with milk",image:"https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=900&q=80"},
-{name:"Birds",count:"Feathers, beaks and egg-laying species",image:"https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&w=900&q=80"},
-{name:"Reptiles",count:"Scaly-skinned animals such as snakes and turtles",image:"https://images.unsplash.com/photo-1535591273668-578e31182c4f?auto=format&fit=crop&w=900&q=80"},
-{name:"Amphibians",count:"Animals such as frogs that live in water and on land",image:"https://images.unsplash.com/photo-1559253664-ca249d4608c6?auto=format&fit=crop&w=900&q=80"},
-{name:"Fish",count:"Aquatic animals that breathe through gills",image:"https://images.unsplash.com/photo-1545670723-196ed0954986?auto=format&fit=crop&w=900&q=80"},
-{name:"Insects",count:"Six-legged animals with three main body sections",image:"https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=900&q=80"},
-{name:"Other Invertebrates",count:"Animals without a backbone, including spiders and octopuses",image:"https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=900&q=80"}];
+{name:"Mammals",count:"Animals that feed their young with milk",image:"assets/animals/african-savanna-elephant.webp"},
+{name:"Birds",count:"Feathers, beaks and egg-laying species",image:"assets/animals/bald-eagle.webp"},
+{name:"Reptiles",count:"Scaly-skinned animals such as snakes and turtles",image:"assets/animals/green-sea-turtle.webp"},
+{name:"Amphibians",count:"Animals such as frogs that live in water and on land",image:"assets/animals/red-eyed-tree-frog.webp"},
+{name:"Fish",count:"Aquatic animals that breathe through gills",image:"assets/animals/ocellaris-clownfish.webp"},
+{name:"Insects",count:"Six-legged animals with three main body sections",image:"assets/animals/monarch-butterfly.webp"},
+{name:"Other Invertebrates",count:"Animals without a backbone, including spiders and octopuses",image:"assets/animals/giant-pacific-octopus.webp"}];
 const taxonomy={
 "Mammals":[
 {group:"Dogs",kind:"Domestic dog breeds",items:["Labrador Retriever","German Shepherd","Golden Retriever","French Bulldog","Poodle","Bulldog","Beagle","Rottweiler","Dachshund","Siberian Husky","Boxer","Shih Tzu","Pomeranian","Doberman Pinscher","Great Dane","Chihuahua","Border Collie","Cocker Spaniel","Australian Shepherd","Mixed-breed dog"]},
