@@ -19,7 +19,8 @@ const taxonomy={
 {group:"Primates",kind:"Monkey, ape and lemur groups",items:["Chimpanzee","Bonobo","Western Gorilla","Orangutan","Gibbon","Baboon","Macaque","Capuchin Monkey","Howler Monkey","Lemur"]},
 {group:"Hoofed Mammals",kind:"Examples of hoofed mammals",items:["Horse","Zebra","Donkey","Giraffe","White Rhinoceros","Black Rhinoceros","Hippopotamus","Deer","Moose","Camel","Llama","Sheep","Goat","Cattle","Pig"]},
 {group:"Marine Mammals",kind:"Ocean-dwelling mammals",items:["Blue Whale","Humpback Whale","Orca","Sperm Whale","Bottlenose Dolphin","Harbour Porpoise","Manatee","Dugong","Harbour Seal","Sea Otter"]},
-{group:"Other Mammals",kind:"Additional mammal groups",items:["Red Fox","Gray Wolf","Meerkat","Kangaroo","Koala","Wombat","Rabbit","Hare","Hedgehog","Bat","Armadillo"]}
+{group:"Other Mammals",kind:"Additional mammal groups",items:["Red Fox","Gray Wolf","Meerkat","Kangaroo","Koala","Wombat","Rabbit","Hare","Hedgehog","Bat","Armadillo"]},
+{group:"Wild Canids",kind:"Wild dog family species",items:["Golden Jackal","Raccoon Dog","Coyote","Side-striped Jackal","Bush Dog","Maned Wolf","Black-backed Jackal","Dingo"]}
 ],
 "Birds":[
 {group:"Birds of Prey",kind:"Eagles, hawks, falcons and vultures",items:["Bald Eagle","Golden Eagle","Peregrine Falcon","Red-tailed Hawk","Osprey","Turkey Vulture","Secretarybird"]},
