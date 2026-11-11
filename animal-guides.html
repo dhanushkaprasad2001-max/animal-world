@@ -348,7 +348,7 @@ async function getCommonsPhoto(name){
   return /creative commons|cc0|public domain|cc by|cc-by/.test(l);
  });
  list.sort((a,b)=>{const n=name.toLowerCase(),score=x=>x===n?0:x.startsWith(n)?1:x.includes(n)?2:3;return score(a.title.toLowerCase())-score(b.title.toLowerCase())});
- const words=name.toLowerCase().replace(/[^a-z0-9 ]/g,' ').split(/\\s+/).filter(w=>w.length>2);const chosen=list.find(x=>{const t=x.title.toLowerCase();return t.includes(name.toLowerCase())||words.filter(w=>t.includes(w)).length>=Math.min(2,words.length)});if(!chosen)return null;
+ const words=name.toLowerCase().replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(w=>w.length>2);const chosen=list.find(x=>{const t=x.title.toLowerCase();return t.includes(name.toLowerCase())||words.filter(w=>t.includes(w)).length>=Math.min(2,words.length)});if(!chosen)return null;
  const m=chosen.info.extmetadata||{};
  return {url:chosen.info.thumburl||chosen.info.url,title:chosen.title,author:clean(m.Artist?.value||m.Credit?.value||'Photographer not identified'),license:clean(m.LicenseShortName?.value||m.License?.value||'See file page'),licenseUrl:m.LicenseUrl?.value||'',fileUrl:chosen.info.descriptionurl||'https://commons.wikimedia.org/wiki/'+encodeURIComponent('File:'+chosen.title)};
 }
