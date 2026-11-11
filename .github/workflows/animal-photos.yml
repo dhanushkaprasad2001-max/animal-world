@@ -36,5 +36,6 @@ jobs:
             echo "No new local animal photographs."
           else
             git commit -m "Add locally hosted animal photographs and credits"
-            git pull --rebase origin main\n            git push
+            git pull --rebase origin main
+            git push
           fi
