@@ -33,7 +33,7 @@ def get_json(url):
             time.sleep(delay)
         except URLError:
             if attempt==6: raise
-            time.sleep(min(60,5*(2**attempt))
+            time.sleep(min(60,5*(2**attempt)))
 
 def clean(value):
     return re.sub(r"<[^>]+>"," ",html.unescape(value or "")).strip()
