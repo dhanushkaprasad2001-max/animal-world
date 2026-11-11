@@ -106,7 +106,7 @@ if(categoryGrid){renderCategories();renderAnimals();search.addEventListener('inp
  const img=document.createElement('img');img.alt=animal;img.loading='lazy';img.style.cssText='display:block;width:100%;max-height:520px;object-fit:cover;border-radius:12px;background:#edf1ed';
  const caption=document.createElement('figcaption');caption.style.cssText='font-size:12px;color:#68746e;padding-top:8px';
  figure.append(img,caption);heading.insertAdjacentElement('afterend',figure);
- const words=animal.toLowerCase().split(/\\s+/).filter(w=>w.length>2);
+ const words=animal.toLowerCase().split(/\s+/).filter(w=>w.length>2);
  const query='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=12&gsrsearch='+encodeURIComponent('filetype:bitmap '+animal)+'&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=1400&format=json&origin=*';
  fetch(query).then(r=>r.ok?r.json():Promise.reject()).then(data=>{
   const files=Object.values(data.query?.pages||{}).map(p=>({title:(p.title||'').replace(/^File:/,''),info:p.imageinfo?.[0]})).filter(x=>{
